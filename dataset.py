@@ -35,7 +35,7 @@ class RTB(Dataset):
         
         for key in tag_dict:
             flag = 0
-            for col in self.imp.column_names:
+            for col in self.imp.columns:
                 if col[:4] == 'User' and col[-5:] == key:
                     flag = 1
                     break
@@ -43,6 +43,8 @@ class RTB(Dataset):
                 print(f"Key {key} not in column ")
                 print(f"Attribute : {tag_dict[key]}")            
                 self.imp[f'User_tag_{key}'] = False
+        
+        
                         
         self.imp = self.imp.drop(['BidID', 'Logtype', 'VisitorID', 'User-Agent', 'IP', 
                         'Adexchange', 'Domain', 'URL', 'AnonymousURLID', 'AdslotID', 
@@ -79,9 +81,10 @@ class RTB(Dataset):
         return self.imp.iloc[idx], self.clk_label[idx], self.conv_label[idx]
     
 if __name__=='__main__':
-    imp_file_path = "Adobe_dataset/imp.06.txt"
-    clk_file_path = "Adobe_dataset/clk.06.txt"
-    conv_file_path = "Adobe_dataset/conv.06.txt"
+    imp_file_path = "dataset/imp.06.txt"
+    clk_file_path = "dataset/clk.06.txt"
+    conv_file_path = "dataset/conv.06.txt"
     dataset = RTB(imp_file_path,clk_file_path,conv_file_path)
     for i,data in enumerate(dataset):
-        print(len(data))
+        print(data)
+        break
