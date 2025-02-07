@@ -28,7 +28,10 @@ class RTB(Dataset):
         self.imp['User_tag'] = self.imp['User_tag'].str.split(',')
         self.imp = self.imp.explode('User_tag')
         self.imp = pd.get_dummies(self.imp, columns=['User_tag'])
-        self.imp = self.imp.groupby('BidID', as_index=False).max()
+        
+        user_cols = [col for col in self.imp.columns if col.startswith('User_')]
+
+        self.imp = self.imp.groupby('BidID', as_index=False).agg({**{col: 'max' for col in user_cols}, **{col: 'first' for col in self.imp.columns if col not in user_cols + ['BidID']}})
         
         for key in tag_dict:
             flag = 0
@@ -40,12 +43,7 @@ class RTB(Dataset):
                 print(f"Key {key} not in column ")
                 print(f"Attribute : {tag_dict[key]}")            
                 self.imp[f'User_tag_{key}'] = False
-        
-        # for key in tag_dict:
-        #      if(tag_dict[key][:-1] not in self.column_names):
-        #         print(tag_dict[key][:-1])
-        #         imp[tag_dict[key][:-1]] = False
-                
+                        
         self.imp = self.imp.drop(['BidID', 'Logtype', 'VisitorID', 'User-Agent', 'IP', 
                         'Adexchange', 'Domain', 'URL', 'AnonymousURLID', 'AdslotID', 
                         'Adslotfloorprice', 'Biddingprice', 'KeypageURL', 'Timestamp'], axis=1)
