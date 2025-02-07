@@ -52,6 +52,9 @@ class RTB(Dataset):
                         'Adexchange', 'Domain', 'URL', 'AnonymousURLID', 'AdslotID', 
                         'Adslotfloorprice', 'Biddingprice', 'KeypageURL', 'Timestamp'], axis=1)
         
+        self.imp = torch.tensor(self.imp.values.astype('float32'))   
+        self.clk_label = torch.tensor(self.clk_label.values.astype('float32'))   
+        self.conv_label = torch.tensor(self.conv_label.values.astype('float32'))   
         
         self.bidId = None # Not used
         self.timestamp = None # Not used
@@ -80,7 +83,7 @@ class RTB(Dataset):
         return self.imp.shape[0]
     
     def __getitem__(self, idx):
-        return self.imp.iloc[idx], self.clk_label[idx], self.conv_label[idx]
+        return self.imp[idx], self.clk_label[idx], self.conv_label[idx]
     
 if __name__=='__main__':
     imp_file_path = "Adobe_dataset/imp.06.txt"
@@ -88,6 +91,6 @@ if __name__=='__main__':
     conv_file_path = "Adobe_dataset/conv.06.txt"
     dataset = RTB(imp_file_path,clk_file_path,conv_file_path)
     dataloader = DataLoader(dataset=dataset, batch_size=100)
-    for i,data in enumerate(dataset):
-        print(type(data))
+    for i,data in enumerate(dataloader):
+        print(data[0].shape)
         break
