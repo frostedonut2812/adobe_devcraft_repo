@@ -34,5 +34,5 @@ print(combined_clk.shape)
 print(combined_conv.shape)
 
 combined_imp.to_csv('dataset_combined/imp.csv', index=False)
-combined_imp.to_csv('dataset_combined/clk.csv', index=False)
-combined_imp.to_csv('dataset_combined/conv.csv', index=False)
+combined_clk.to_csv('dataset_combined/clk.csv', index=False)
+combined_conv.to_csv('dataset_combined/conv.csv', index=False)
