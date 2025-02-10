@@ -1,6 +1,6 @@
 # Hackathon Prototype Submission 🚀
 
-Welcome to our  **Hackathon Prototype Repository** ! 🎉 This repository contains the codebase for our prototype submission in [Hackathon Name]. Feel free to browse through the code, experiment, and explore!
+Welcome to our  **Hackathon Prototype Repository** ! 🎉 This repository contains the codebase for our prototype submission in Adobe Devcraft. Feel free to browse through the code, experiment, and explore!
 
 ## 📌 About This Repository
 
